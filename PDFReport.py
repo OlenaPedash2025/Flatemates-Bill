@@ -54,6 +54,6 @@ class PDFReport:
         # Save the file
         os.chdir("files")  # Ensure we're in the correct directory
         pdf.output(self.filename)
-        webbrowser.open(
-            "file://" + os.path.abspath(self.filename)
-        )  # Open the PDF after generation
+        # webbrowser.open(
+        #     "file://" + os.path.abspath(self.filename)
+        # )  # Open the PDF after generation
