@@ -67,6 +67,7 @@
 # REFACTORING (GEMINI-4.0) - Added error handling, validation, and improved structure:
 
 import os
+import webbrowser
 from dataclasses import dataclass
 from typing import Dict, List
 
@@ -175,6 +176,9 @@ class PDFReport:
 
         # Save the file
         pdf.output(self.filename)
+        webbrowser.open(
+            "file://" + os.path.abspath(self.filename)
+        )  # Open the PDF after generation
 
 
 # --- MAIN EXECUTION WITH ERROR HANDLING ---
