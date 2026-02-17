@@ -131,16 +131,17 @@ class BillSplitter:
 class PDFReport:
     """Generates a professional PDF file."""
 
-    def __init__(self, filename: str, splitter: BillSplitter):
+    def __init__(self, filename: str, splitter: BillSplitter, image_path: str):
         self.filename = filename
         self.splitter = splitter
+        self.image_path = image_path
 
     def generate(self) -> None:
         pdf = FPDF(orientation="P", unit="pt", format="A4")
         pdf.add_page()
 
         # Add an icon or image (optional)
-        # pdf.image("house.png", w=30, h=30)
+        pdf.image(self.image_path, w=30, h=30)
 
         # Title
         pdf.set_font(family="Arial", size=24, style="B")
@@ -169,7 +170,7 @@ class PDFReport:
 
         # Total
         pdf.set_font(family="Arial", size=12, style="B")
-        pdf.cell(w=300, h=30, "TOTAL BILL", border=1, align="R")
+        pdf.cell(w=300, h=30, txt="TOTAL BILL", border=1, align="R")
         pdf.cell(w=150, h=30, txt=f"${self.splitter.bill.amount:.2f}", border=1, ln=1)
 
         # Save the file
@@ -191,7 +192,11 @@ if __name__ == "__main__":
         splitter = BillSplitter(bill_sept, people)
 
         # 3. Output generation
-        report = PDFReport(filename="flatmates_bill.pdf", splitter=splitter)
+        current_dir = os.path.dirname(__file__)
+        image_path = os.path.join(current_dir, "house.png")
+        report = PDFReport(
+            filename="flatmates_bill.pdf", splitter=splitter, image_path=image_path
+        )
         report.generate()
 
         print(f"✅ Success! Report saved as {os.path.abspath('flatmates_bill.pdf')}")
