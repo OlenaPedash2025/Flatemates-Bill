@@ -1,0 +1,33 @@
+# Environments (Python & Node)
+.venv/
+env/
+venv/
+node_modules/
+.next/
+dist/
+build/
+*.pdf
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Web / JavaScript
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+# IDE / System files
+.vscode/
+.idea/
+.DS_Store
+*.swp
+Thumbs.db
+.history
