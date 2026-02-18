@@ -1,7 +1,8 @@
 # --- INFRASTRUCTURE (PDF) ---
 import os
-import webbrowser
 
+# import webbrowser
+from filestack import Client
 from fpdf import FPDF
 
 from BillSplitter import BillSplitter
@@ -57,3 +58,13 @@ class PDFReport:
         # webbrowser.open(
         #     "file://" + os.path.abspath(self.filename)
         # )  # Open the PDF after generation
+
+
+class FileSharer:
+    def __init__(self, filepath: str, api_key: str = "AoC797MZyTnGv5HBP6Y86z"):
+        self.filepath = filepath
+        self.client = Client(api_key)
+
+    def share(self):
+        new_filelink = self.client.upload(filepath=self.filepath)
+        return new_filelink.url

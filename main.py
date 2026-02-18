@@ -1,10 +1,9 @@
 import os
-import webbrowser
 
 from Bill import Bill
 from BillSplitter import BillSplitter
 from Flatmate import Flatmate
-from PDFReport import PDFReport
+from PDFReport import FileSharer, PDFReport
 
 if __name__ == "__main__":
     try:
@@ -33,7 +32,15 @@ if __name__ == "__main__":
         )
         report.generate()
 
+        file_sharer = FileSharer(
+            filepath=os.path.join(current_dir, "files", "flatmates_bill.pdf")
+        )
+        shareable_link = file_sharer.share()
+        print(
+            f"\n✅ Bill generated and shared successfully! Access it here: {shareable_link}"
+        )
+
     except ValueError:
-        print("❌ Error: Please enter valid numbers for amount and days.")
+        print("Error: Please enter valid numbers for amount and days.")
     except Exception as e:
-        print(f"🚨 Unexpected system error: {e}")
+        print(f"Unexpected system error: {e}")
