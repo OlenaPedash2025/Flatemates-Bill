@@ -28,18 +28,23 @@ class PDFReport:
 
         # Flatmates data
         pdf.set_font(family="Times", size=12)
+
+        shares = self.splitter.calculate_split()
+
         for flatmate in self.splitter.flatmates:
             name_text = f"{flatmate.name}:"
-            amount_text = str(round(self.splitter.calculate_share(flatmate), 2))
+            # Extract the amount for the current flatmate from the calculated dictionary
+            amount = shares.get(flatmate.name, 0)
+            amount_text = str(round(amount, 2))
 
             pdf.cell(w=100, h=25, txt=name_text, border=0)
             pdf.cell(w=150, h=25, txt=amount_text, border=0, ln=1)
 
+        # Output the PDF to the file path
         pdf.output(self.filename)
 
 
 class FileSharer:
-
     def __init__(self, filepath, api_key=""):
         self.filepath = filepath
         self.api_key = api_key

@@ -25,8 +25,15 @@ class Config:
 
 
 # Setup logging
+log_file = os.path.join(Config.FILES_DIR, "app.log")
+
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler(log_file),
+        logging.StreamHandler(),
+    ],
 )
 logger = logging.getLogger(__name__)
 
